@@ -1,0 +1,26 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: self
+    persistCredentials: true
+
+  - task: Bash@3
+    displayName: "Create git tag"
+    inputs:
+      targetType: "inline"
+      script: |
+        tag=`cat VERSION`
+        git config --global user.name "BuildService"
+        git config --global user.email "buildservice@pipeline.com"
+        git tag $tag
+        git tag -f latest
+        git push -f --tags

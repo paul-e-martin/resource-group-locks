@@ -1,0 +1,14 @@
+module "azurerm_resource_group_locks___landing_zone_subscription_id__" {
+  source = "./modules/resource-group-locks"
+
+  providers = {
+    azurerm             = azurerm
+    azurerm.landingzone = azurerm.sub-__landing_zone_subscription_id__
+  }
+  landing_zone_subscription_id = "__landing_zone_subscription_id__"
+  subscription_id              = var.subscription_id
+  resource_group_name          = var.resource_group_name
+  storage_account_name         = var.storage_account_name
+  container_name               = var.container_name
+  key                          = var.key
+}
